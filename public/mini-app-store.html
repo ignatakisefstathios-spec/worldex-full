@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="description" content="Worldex Protocol - Advanced DeFi on World Chain with AI-powered yield optimization">
+  <meta property="og:title" content="Worldex Protocol">
+  <meta property="og:description" content="Advanced DeFi on World Chain - Staking, Lending, Arbitrage, and more">
+  <meta property="og:image" content="/worldex-og.png">
+  <title>Worldex Protocol - World App Mini App</title>
+  <script src="https://statics.moonshot.cn/kimi-ppt/html-gen/static/tailwindcss@4_0805.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    .gradient-text {
+      background: linear-gradient(135deg, #0052FF, #8B5CF6, #06B6D4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #0052FF 0%, #8B5CF6 50%, #06B6D4 100%);
+    }
+    .glass {
+      background: rgba(26, 26, 26, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    .animate-pulse-slow {
+      animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+<body class="bg-[#0a0a0a] text-white min-h-screen">
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center">
+          <span class="text-white font-bold text-xl">W</span>
+        </div>
+        <span class="font-bold text-lg">Worldex</span>
+      </div>
+      <a href="/" class="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-sm font-medium transition-colors">
+        Open App
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-6">
+        <span class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
+        <span class="text-sm text-blue-400">Now on World App</span>
+      </div>
+      
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+        Advanced DeFi on
+        <span class="gradient-text block">World Chain</span>
+      </h1>
+      
+      <p class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-8">
+        Stake, lend, borrow, and earn yields with institutional-grade security. 
+        Powered by AI, built for the Worldcoin ecosystem.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/" class="px-8 py-4 gradient-bg rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity">
+          Launch App
+        </a>
+        <a href="#features" class="px-8 py-4 bg-white/5 border border-white/10 rounded-xl font-semibold text-lg hover:bg-white/10 transition-colors">
+          Learn More
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-16">
+        <div class="glass rounded-2xl p-4">
+          <p class="text-2xl sm:text-3xl font-bold gradient-text">$12.5M</p>
+          <p class="text-sm text-gray-400 mt-1">Total Value Locked</p>
+        </div>
+        <div class="glass rounded-2xl p-4">
+          <p class="text-2xl sm:text-3xl font-bold gradient-text">28.3%</p>
+          <p class="text-sm text-gray-400 mt-1">Max APY</p>
+        </div>
+        <div class="glass rounded-2xl p-4">
+          <p class="text-2xl sm:text-3xl font-bold gradient-text">8,432</p>
+          <p class="text-sm text-gray-400 mt-1">Active Users</p>
+        </div>
+        <div class="glass rounded-2xl p-4">
+          <p class="text-2xl sm:text-3xl font-bold gradient-text">6</p>
+          <p class="text-sm text-gray-400 mt-1">Products</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-20 px-4">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4">Our Products</h2>
+        <p class="text-gray-400 max-w-xl mx-auto">
+          A complete suite of DeFi products designed for the Worldcoin ecosystem
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- LWLD -->
+        <div class="glass rounded-2xl p-6 hover:border-blue-500/50 transition-colors">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">LWLD</h3>
+          <p class="text-gray-400 text-sm mb-4">Leveraged WLD staking for amplified yields up to 3x</p>
+          <div class="flex items-center justify-between">
+            <span class="text-green-400 font-semibold">24.5% APY</span>
+            <span class="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded-full">High Risk</span>
+          </div>
+        </div>
+
+        <!-- LETH -->
+        <div class="glass rounded-2xl p-6 hover:border-blue-500/50 transition-colors">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">LETH</h3>
+          <p class="text-gray-400 text-sm mb-4">Liquid ETH staking with auto-compounding rewards</p>
+          <div class="flex items-center justify-between">
+            <span class="text-green-400 font-semibold">8.2% APY</span>
+            <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">Low Risk</span>
+          </div>
+        </div>
+
+        <!-- SWLD -->
+        <div class="glass rounded-2xl p-6 hover:border-blue-500/50 transition-colors">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">SWLD</h3>
+          <p class="text-gray-400 text-sm mb-4">Over-collateralized stablecoin backed by WLD</p>
+          <div class="flex items-center justify-between">
+            <span class="text-green-400 font-semibold">12.8% APY</span>
+            <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded-full">Medium Risk</span>
+          </div>
+        </div>
+
+        <!-- Arbitrage -->
+        <div class="glass rounded-2xl p-6 hover:border-blue-500/50 transition-colors">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Arbitrage Pool</h3>
+          <p class="text-gray-400 text-sm mb-4">Earn from liquidation penalties and price discrepancies</p>
+          <div class="flex items-center justify-between">
+            <span class="text-green-400 font-semibold">28.3% APY</span>
+            <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded-full">Medium Risk</span>
+          </div>
+        </div>
+
+        <!-- Safety -->
+        <div class="glass rounded-2xl p-6 hover:border-blue-500/50 transition-colors">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Safety</h3>
+          <p class="text-gray-400 text-sm mb-4">Insurance coverage for your deposits</p>
+          <div class="flex items-center justify-between">
+            <span class="text-blue-400 font-semibold">Up to 95%</span>
+            <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">Protected</span>
+          </div>
+        </div>
+
+        <!-- Lending -->
+        <div class="glass rounded-2xl p-6 hover:border-blue-500/50 transition-colors">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Lending</h3>
+          <p class="text-gray-400 text-sm mb-4">Supply and borrow assets with competitive rates</p>
+          <div class="flex items-center justify-between">
+            <span class="text-green-400 font-semibold">Up to 12.5%</span>
+            <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full">Supply APY</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="py-20 px-4 bg-white/5">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4">How It Works</h2>
+        <p class="text-gray-400">Get started with Worldex in 3 simple steps</p>
+      </div>
+
+      <div class="grid sm:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl font-bold text-white">1</span>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Connect Wallet</h3>
+          <p class="text-gray-400 text-sm">Use World App to connect your wallet securely with World ID verification</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl font-bold text-white">2</span>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Choose Product</h3>
+          <p class="text-gray-400 text-sm">Select from staking, lending, arbitrage, or CDP vaults based on your risk appetite</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl font-bold text-white">3</span>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Start Earning</h3>
+          <p class="text-gray-400 text-sm">Deposit funds and watch your yields grow with real-time rewards</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Security Section -->
+  <section class="py-20 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">Security First</h2>
+      <p class="text-gray-400 max-w-xl mx-auto mb-12">
+        Your funds are protected by industry-leading security measures and audited smart contracts
+      </p>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="glass rounded-2xl p-6">
+          <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold mb-1">Audited</h3>
+          <p class="text-sm text-gray-400">By CertiK & OpenZeppelin</p>
+        </div>
+
+        <div class="glass rounded-2xl p-6">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold mb-1">Non-Custodial</h3>
+          <p class="text-sm text-gray-400">You control your funds</p>
+        </div>
+
+        <div class="glass rounded-2xl p-6">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold mb-1">Insurance</h3>
+          <p class="text-sm text-gray-400">Up to 95% coverage</p>
+        </div>
+
+        <div class="glass rounded-2xl p-6">
+          <div class="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold mb-1">World ID</h3>
+          <p class="text-sm text-gray-400">Verified users only</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 px-4 bg-gradient-to-br from-blue-500/10 to-purple-500/10">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">Ready to Start?</h2>
+      <p class="text-gray-400 mb-8">
+        Join thousands of users earning yields on World Chain. 
+        Open in World App for the best experience.
+      </p>
+      <a href="/" class="inline-block px-8 py-4 gradient-bg rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity">
+        Launch Worldex
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 px-4 border-t border-white/10">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center">
+            <span class="text-white font-bold">W</span>
+          </div>
+          <span class="font-semibold">Worldex Protocol</span>
+        </div>
+        
+        <div class="flex items-center gap-6 text-sm text-gray-400">
+          <a href="#" class="hover:text-white transition-colors">Docs</a>
+          <a href="#" class="hover:text-white transition-colors">GitHub</a>
+          <a href="#" class="hover:text-white transition-colors">Discord</a>
+          <a href="#" class="hover:text-white transition-colors">Twitter</a>
+        </div>
+        
+        <p class="text-sm text-gray-500">© 2024 Worldex Protocol</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
