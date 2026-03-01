@@ -1,4 +1,5 @@
 import { createConfig, http } from 'wagmi'
+import { injected } from 'wagmi/connectors'
 import { defineChain } from 'viem'
 
 export const worldChain = defineChain({
@@ -9,7 +10,6 @@ export const worldChain = defineChain({
     default: { http: ['https://worldchain-mainnet.g.alchemy.com/public'] },
   },
 })
-import { injected } from 'wagmi/connectors'
 
 export const config = createConfig({
   chains: [worldChain],
