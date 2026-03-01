@@ -9,6 +9,12 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['wagmi', 'viem', 'wagmi/connectors'],
+    include: [
+      'wagmi', 
+      'viem', 
+      'wagmi/connectors',
+      '@worldcoin/minikit-react',
+      '@worldcoin/minikit-js'
+    ],
   },
 })
