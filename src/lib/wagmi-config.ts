@@ -1,5 +1,14 @@
 import { createConfig, http } from 'wagmi'
-import { worldChain } from 'viem/chains'
+import { defineChain } from 'viem'
+
+export const worldChain = defineChain({
+  id: 480,
+  name: 'World Chain',
+  nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+  rpcUrls: {
+    default: { http: ['https://worldchain-mainnet.g.alchemy.com/public'] },
+  },
+})
 import { injected } from 'wagmi/connectors'
 
 export const config = createConfig({
