@@ -6,6 +6,10 @@ export default defineConfig({
   build: {
     commonjsOptions: {
       transformMixedEsModules: true,
+      include: [/node_modules/],
+    },
+    rollupOptions: {
+      external: [],
     },
   },
   optimizeDeps: {
@@ -16,5 +20,20 @@ export default defineConfig({
       '@worldcoin/minikit-react',
       '@worldcoin/minikit-js'
     ],
+    esbuildOptions: {
+      target: 'es2020'
+    }
   },
+  esbuild: {
+    target: 'es2020'
+  },
+  resolve: {
+    dedupe: ['wagmi', 'viem', '@worldcoin/minikit-react', '@worldcoin/minikit-js'],
+    alias: {
+      process: "process/browser",
+      stream: "stream-browserify",
+      zlib: "browserify-zlib",
+      util: 'util',
+    }
+  }
 })
