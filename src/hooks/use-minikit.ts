@@ -24,7 +24,6 @@ export function useMiniKit() {
           setIsInstalled(installed);
           setIsReady(true);
         } else {
-          // MiniKit not ready yet, try again in 500ms
           setTimeout(checkMiniKit, 500);
         }
       } catch (err) {
@@ -33,7 +32,6 @@ export function useMiniKit() {
       }
     };
 
-    // Wait a bit for MiniKit to initialize
     setTimeout(checkMiniKit, 1000);
   }, []);
 
@@ -72,11 +70,43 @@ export function useMiniKit() {
     }
   }, [setAuthenticated, setWalletAddress, setUser]);
 
+  // THIS WAS MISSING - Verify World ID for airdrop
+  const verifyWorldID = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      if (!MiniKit || !MiniKit.isInstalled()) {
+        throw new Error('Please open in World App');
+      }
+
+      // This matches your action in the Dev Portal
+      const result = await MiniKit.commandsAsync.verify({
+        action: 'verify-worldex-user',
+        signal: useAppStore.getState().walletAddress || '',
+      });
+
+      if (result.status === 'success') {
+        setWorldIDVerified(true);
+        return true;
+      } else {
+        throw new Error('Verification failed');
+      }
+    } catch (err: any) {
+      setError(err.message || 'Verification failed');
+      console.error('World ID verification error:', err);
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  }, [setWorldIDVerified]);
+
   return {
     isInstalled,
     isLoading,
     isReady,
     error,
     connect,
+    verifyWorldID, // NOW EXPORTED
   };
 }
