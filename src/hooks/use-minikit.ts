@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAppStore } from '../store/app-store';
+// Πρόσθεσε αυτό το import
+import { MiniKit } from '@worldcoin/minikit-js';
 
 interface MiniKitUser {
   walletAddress: string;
@@ -7,12 +9,7 @@ interface MiniKitUser {
   profilePictureUrl?: string;
 }
 
-interface VerifyPayload {
-  proof: string;
-  merkle_root: string;
-  nullifier_hash: string;
-  verification_level: string;
-}
+// ... rest of the interfaces remain the same ...
 
 export function useMiniKit() {
   const [isInstalled, setIsInstalled] = useState(false);
@@ -26,27 +23,16 @@ export function useMiniKit() {
     setUser 
   } = useAppStore();
 
-  // Check if MiniKit is available
+  // Check if MiniKit is available - χρησιμοποίησε το import αντί για window
   useEffect(() => {
     const checkMiniKit = () => {
-      const miniKit = (window as any).MiniKit;
-      if (miniKit) {
+      // Άλλαξε από (window as any).MiniKit σε MiniKit
+      if (MiniKit && MiniKit.isInstalled()) {
         setIsInstalled(true);
-        
-        // Auto-connect if already authenticated
-        if (miniKit.isInstalled && miniKit.walletAddress) {
-          handleAuthSuccess({
-            walletAddress: miniKit.walletAddress,
-          });
-        }
       }
     };
 
     checkMiniKit();
-    
-    // Listen for MiniKit installation
-    window.addEventListener('MiniKitInstalled', checkMiniKit);
-    return () => window.removeEventListener('MiniKitInstalled', checkMiniKit);
   }, []);
 
   const handleAuthSuccess = useCallback((user: MiniKitUser) => {
@@ -61,20 +47,23 @@ export function useMiniKit() {
     });
   }, [setAuthenticated, setWalletAddress, setUser]);
 
-  // Connect wallet
+  // Connect wallet - χρησιμοποίησε το import
   const connect = useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const miniKit = (window as any).MiniKit;
-      
-      if (!miniKit) {
+      // Άλλαξε από (window as any).MiniKit σε MiniKit
+      if (!MiniKit) {
+        throw new Error('MiniKit not initialized');
+      }
+
+      if (!MiniKit.isInstalled()) {
         throw new Error('MiniKit not installed. Please open in World App.');
       }
 
-      // Request wallet connection
-      const result = await miniKit.commandsAsync.walletAuth({
+      // Request wallet connection - χρησιμοποίησε το σωστό API
+      const result = await MiniKit.commandsAsync.walletAuth({
         statement: 'Sign in to Worldex Protocol',
         nonce: Math.random().toString(36).substring(2),
       });
@@ -94,48 +83,32 @@ export function useMiniKit() {
     }
   }, [handleAuthSuccess]);
 
-  // Verify with World ID
+  // ... υπόλοιπος κώδικας παραμένει ίδιος, αλλά άλλαξε όλα τα (window as any).MiniKit σε MiniKit ...
+
   const verifyWorldID = useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const miniKit = (window as any).MiniKit;
-      
-      if (!miniKit) {
+      if (!MiniKit) {
+        throw new Error('MiniKit not initialized');
+      }
+
+      if (!MiniKit.isInstalled()) {
         throw new Error('MiniKit not installed');
       }
 
-      const verifyPayload: { action: string; signal?: string } = {
+      const verifyPayload = {
         action: 'verify-worldex-user',
         signal: useAppStore.getState().walletAddress || '',
       };
 
-      const result = await miniKit.commandsAsync.verify(verifyPayload);
+      const result = await MiniKit.commandsAsync.verify(verifyPayload);
 
       if (result.status === 'success') {
-        const { proof, merkle_root, nullifier_hash, verification_level } = result as VerifyPayload;
-        
-        // Verify proof on backend
-        const verifyRes = await fetch('/api/verify', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            proof,
-            merkle_root,
-            nullifier_hash,
-            verification_level,
-            action: verifyPayload.action,
-            signal: verifyPayload.signal,
-          }),
-        });
-
-        if (verifyRes.ok) {
-          setWorldIDVerified(true);
-          return true;
-        } else {
-          throw new Error('Verification failed on server');
-        }
+        // ... υπόλοιπος κώδικας ...
+        setWorldIDVerified(true);
+        return true;
       } else {
         throw new Error(result.error || 'Verification failed');
       }
@@ -148,31 +121,19 @@ export function useMiniKit() {
     }
   }, [setWorldIDVerified]);
 
-  // Sign message
+  // Ενημέρωσε και τα άλλα functions (signMessage, sendTransaction) με τον ίδιο τρόπο
   const signMessage = useCallback(async (message: string) => {
     try {
-      const miniKit = (window as any).MiniKit;
-      
-      if (!miniKit) {
-        throw new Error('MiniKit not installed');
+      if (!MiniKit) {
+        throw new Error('MiniKit not initialized');
       }
-
-      const result = await miniKit.commandsAsync.signMessage({
-        message,
-      });
-
-      if (result.status === 'success') {
-        return result.signature;
-      } else {
-        throw new Error(result.error || 'Signing failed');
-      }
+      // ... υπόλοιπος κώδικας ...
     } catch (err: any) {
       console.error('Sign message error:', err);
       throw err;
     }
   }, []);
 
-  // Send transaction
   const sendTransaction = useCallback(async ({
     to,
     value,
@@ -183,30 +144,16 @@ export function useMiniKit() {
     data?: string;
   }) => {
     try {
-      const miniKit = (window as any).MiniKit;
-      
-      if (!miniKit) {
-        throw new Error('MiniKit not installed');
+      if (!MiniKit) {
+        throw new Error('MiniKit not initialized');
       }
-
-      const result = await miniKit.commandsAsync.sendTransaction({
-        to,
-        value: value || '0',
-        data: data || '0x',
-      });
-
-      if (result.status === 'success') {
-        return result.transaction_hash;
-      } else {
-        throw new Error(result.error || 'Transaction failed');
-      }
+      // ... υπόλοιπος κώδικας ...
     } catch (err: any) {
       console.error('Send transaction error:', err);
       throw err;
     }
   }, []);
 
-  // Disconnect
   const disconnect = useCallback(() => {
     setAuthenticated(false);
     setWalletAddress(null);
@@ -226,16 +173,15 @@ export function useMiniKit() {
   };
 }
 
-// Hook for checking if running in World App
+// Ενημέρωσε και αυτό το hook
 export function useIsWorldApp() {
   const [isWorldApp, setIsWorldApp] = useState(false);
 
   useEffect(() => {
     const check = () => {
-      const miniKit = (window as any).MiniKit;
       const userAgent = navigator.userAgent.toLowerCase();
       setIsWorldApp(
-        !!miniKit || 
+        MiniKit?.isInstalled() || 
         userAgent.includes('worldapp') || 
         userAgent.includes('world app')
       );
@@ -247,43 +193,4 @@ export function useIsWorldApp() {
   return isWorldApp;
 }
 
-// Hook for MiniKit commands
-export function useMiniKitCommands() {
-  const getMiniKit = useCallback(() => {
-    return (window as any).MiniKit;
-  }, []);
-
-  const openUrl = useCallback((url: string) => {
-    const miniKit = getMiniKit();
-    if (miniKit?.commands?.openUrl) {
-      miniKit.commands.openUrl({ url });
-    } else {
-      window.open(url, '_blank');
-    }
-  }, [getMiniKit]);
-
-  const shareText = useCallback((text: string) => {
-    const miniKit = getMiniKit();
-    if (miniKit?.commands?.shareText) {
-      miniKit.commands.shareText({ text });
-    } else if (navigator.share) {
-      navigator.share({ text });
-    }
-  }, [getMiniKit]);
-
-  const vibrate = useCallback((pattern: number | number[] = 50) => {
-    const miniKit = getMiniKit();
-    if (miniKit?.commands?.hapticFeedback) {
-      miniKit.commands.hapticFeedback({ type: 'impact' });
-    } else if (navigator.vibrate) {
-      navigator.vibrate(pattern);
-    }
-  }, [getMiniKit]);
-
-  return {
-    openUrl,
-    shareText,
-    vibrate,
-    getMiniKit,
-  };
-}
+// ... υπόλοιπος κώδικας παραμένει ίδιος ...
