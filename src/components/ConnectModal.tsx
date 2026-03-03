@@ -5,11 +5,19 @@ import { cn } from '../lib/utils';
 
 export function ConnectModal() {
   const { showConnectModal, setShowConnectModal } = useAppStore();
-  const { connect, verifyWorldID, isLoading, isInstalled } = useMiniKit();
+  const { connect, isLoading, isInstalled } = useMiniKit();
 
   if (!showConnectModal) return null;
 
   const handleConnect = async () => {
+    // If not in World App, redirect to open it
+    if (!isInstalled) {
+      const appId = 'app_aa859437d880d7c1419933a0c93e3bac';
+      window.location.href = `https://worldcoin.org/mini-app?app_id=${appId}`;
+      return;
+    }
+    
+    // If inside World App, proceed with connection
     await connect();
     setShowConnectModal(false);
   };
@@ -45,9 +53,7 @@ export function ConnectModal() {
             disabled={isLoading}
             className={cn(
               'w-full flex items-center gap-4 p-4 rounded-xl border transition-all',
-              isInstalled
-                ? 'border-worldcoin-blue/50 bg-worldcoin-blue/10 hover:bg-worldcoin-blue/20'
-                : 'border-dark-600 bg-dark-700/50 opacity-50 cursor-not-allowed'
+              'border-worldcoin-blue/50 bg-worldcoin-blue/10 hover:bg-worldcoin-blue/20 cursor-pointer'
             )}
           >
             <div className="w-12 h-12 rounded-xl bg-dark-900 flex items-center justify-center">
@@ -56,7 +62,7 @@ export function ConnectModal() {
             <div className="flex-1 text-left">
               <p className="font-semibold text-white">World App</p>
               <p className="text-sm text-gray-400">
-                {isInstalled ? 'Recommended' : 'Open in World App'}
+                {isInstalled ? 'Tap to connect' : 'Open in World App'}
               </p>
             </div>
             {isLoading && (
