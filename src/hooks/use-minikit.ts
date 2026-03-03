@@ -24,6 +24,7 @@ export function useMiniKit() {
           setIsInstalled(installed);
           setIsReady(true);
         } else {
+          // MiniKit not ready yet, try again in 500ms
           setTimeout(checkMiniKit, 500);
         }
       } catch (err) {
@@ -32,6 +33,7 @@ export function useMiniKit() {
       }
     };
 
+    // Wait a bit for MiniKit to initialize
     setTimeout(checkMiniKit, 1000);
   }, []);
 
@@ -70,7 +72,7 @@ export function useMiniKit() {
     }
   }, [setAuthenticated, setWalletAddress, setUser]);
 
-  // THIS WAS MISSING - Verify World ID for airdrop
+  // THIS IS THE IMPORTANT PART - Verify World ID for airdrop
   const verifyWorldID = useCallback(async () => {
     setIsLoading(true);
     setError(null);
@@ -108,5 +110,66 @@ export function useMiniKit() {
     error,
     connect,
     verifyWorldID, // NOW EXPORTED
+  };
+}
+
+// Hook for checking if running in World App
+export function useIsWorldApp() {
+  const [isWorldApp, setIsWorldApp] = useState(false);
+
+  useEffect(() => {
+    const check = () => {
+      const userAgent = navigator.userAgent.toLowerCase();
+      setIsWorldApp(
+        MiniKit?.isInstalled() || 
+        userAgent.includes('worldapp') || 
+        userAgent.includes('world app')
+      );
+    };
+
+    check();
+  }, []);
+
+  return isWorldApp;
+}
+
+// Hook for MiniKit commands
+export function useMiniKitCommands() {
+  const getMiniKit = useCallback(() => {
+    return MiniKit;
+  }, []);
+
+  const openUrl = useCallback((url: string) => {
+    const miniKit = getMiniKit();
+    if (miniKit?.commands?.openUrl) {
+      miniKit.commands.openUrl({ url });
+    } else {
+      window.open(url, '_blank');
+    }
+  }, [getMiniKit]);
+
+  const shareText = useCallback((text: string) => {
+    const miniKit = getMiniKit();
+    if (miniKit?.commands?.shareText) {
+      miniKit.commands.shareText({ text });
+    } else if (navigator.share) {
+      navigator.share({ text });
+    }
+  }, [getMiniKit]);
+
+  const vibrate = useCallback((pattern: number | number[] = 50) => {
+    const miniKit = getMiniKit();
+    if (miniKit?.commands?.hapticFeedback) {
+      miniKit.commands.hapticFeedback({ type: 'impact' });
+    } else if (navigator.vibrate) {
+      navigator.vibrate(pattern);
+    }
+  }, [getMiniKit]);
+
+  return {
+    openUrl,
+    shareText,
+    vibrate,
+    getMiniKit,
   };
 }
