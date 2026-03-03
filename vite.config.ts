@@ -3,37 +3,30 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  build: {
-    commonjsOptions: {
-      transformMixedEsModules: true,
-      include: [/node_modules/],
-    },
-    rollupOptions: {
-      external: [],
-    },
+  esbuild: {
+    include: [/node_modules/],
+    exclude: [],
+    target: 'esnext'
   },
   optimizeDeps: {
     include: [
-      'wagmi', 
-      'viem', 
-      'wagmi/connectors',
       '@worldcoin/minikit-react',
-      '@worldcoin/minikit-js'
+      '@worldcoin/minikit-js',
+      '@worldcoin/minikit-react/**/*',
+      '@worldcoin/minikit-js/**/*'
     ],
-    esbuildOptions: {
-      target: 'es2020'
-    }
+    force: true
   },
-  esbuild: {
-    target: 'es2020'
-  },
-  resolve: {
-    dedupe: ['wagmi', 'viem', '@worldcoin/minikit-react', '@worldcoin/minikit-js'],
-    alias: {
-      process: "process/browser",
-      stream: "stream-browserify",
-      zlib: "browserify-zlib",
-      util: 'util',
+  build: {
+    commonjsOptions: {
+      transformMixedEsModules: true,
+      include: [/node_modules/]
+    },
+    rollupOptions: {
+      external: [],
+      output: {
+        manualChunks: undefined
+      }
     }
   }
-})
+})'
